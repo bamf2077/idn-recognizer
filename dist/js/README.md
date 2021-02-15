@@ -2,7 +2,7 @@
 
 # ID Number Recognizer 使用说明
 
-该目录存放的文件内容同 `/src/js/` 目录，仅做 Minified 处理，更适合生产环境使用，具体文件说明还请移步 https://github.com/francis-zhao/idn-recognizer/tree/master/src/js/#readme 。
+该目录存放的文件内容同 `/src/js/` 目录，仅做 Minified 处理，更适合生产环境使用，具体文件说明还请移步 https://github.com/francis-zhao/idn-recognizer/tree/master/src/js#readme 。
 
 推荐在服务器开启 Brotli/Gzip 压缩或直接使用 jsDelivr CDN。
 

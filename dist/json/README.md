@@ -2,7 +2,7 @@
 
 # ID Number Recognizer 行政区划数据库
 
-该目录存放的文件内容同 `/src/json/` 目录，仅做 Minified 处理，更适合生产环境使用，具体文件说明还请移步 https://github.com/francis-zhao/idn-recognizer/tree/master/src/json/#readme 。
+该目录存放的文件内容同 `/src/json/` 目录，仅做 Minified 处理，更适合生产环境使用，具体文件说明还请移步 https://github.com/francis-zhao/idn-recognizer/tree/master/src/json#readme 。
 
 当然 JSON 文件也没什么压缩手段，正则表达式 `[\s\n]` 批量替换而已，能让文件小那么一丁点……因文件较大，实际使用还是强烈推荐在服务器开启 Brotli/Gzip 压缩或直接使用 jsDelivr CDN。
 
