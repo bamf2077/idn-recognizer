@@ -1,5 +1,5 @@
 /*!
- * IDN Recognizer v3.0.1-alpha
+ * IDN Recognizer v3.0.1-beta
  * https://n2o.io/go?page=idn-recognizer
  *
  * Copyright 2021 Francis Zhao <francis@n2o.io>
@@ -68,6 +68,7 @@ const idnjs = {
 
       // 有效性
       valid: false,
+      message: undefined,
     };
 
     if (str) {
@@ -214,48 +215,50 @@ const idnjs = {
             }
           }
         };
-      }
 
-      // 2. 出生日期码
-      // 2.1. 截取字符串第 7-14 位
-      const inputDateOfBirth = inputIDN.substr(6, 8);
-      // 2.2. 出生年
-      if (inputDateOfBirth && inputDateOfBirth.length > 3) {
-        const inputYearOfBirth = inputDateOfBirth.substr(0, 4);
-        const outputYearOfBirth = parseInt(inputYearOfBirth, 10);
-        output.dateOfBirth.year = outputYearOfBirth;
+        // 请求完成、中止、错误操作
+        request.addEventListener('loadend', () => {
+          // 2. 出生日期码
+          // 2.1. 截取字符串第 7-14 位
+          const inputDateOfBirth = inputIDN.substr(6, 8);
+          // 2.2. 出生年
+          if (inputDateOfBirth && inputDateOfBirth.length > 3) {
+            const inputYearOfBirth = inputDateOfBirth.substr(0, 4);
+            const outputYearOfBirth = parseInt(inputYearOfBirth, 10);
+            output.dateOfBirth.year = outputYearOfBirth;
 
-        // 2.3. 出生月
-        if (inputDateOfBirth.length > 5) {
-          const inputMonthOfBirth = inputDateOfBirth.substr(4, 2);
-          const outputMonthOfBirth = parseInt(inputMonthOfBirth, 10);
-          output.dateOfBirth.month = outputMonthOfBirth;
+            // 2.3. 出生月
+            if (inputDateOfBirth.length > 5) {
+              const inputMonthOfBirth = inputDateOfBirth.substr(4, 2);
+              const outputMonthOfBirth = parseInt(inputMonthOfBirth, 10);
+              output.dateOfBirth.month = outputMonthOfBirth;
 
-          // 2.4. 出生日
-          if (inputDateOfBirth.length === 8) {
-            const inputDayOfBirth = inputDateOfBirth.substr(6, 2);
-            const outputDayOfBirth = parseInt(inputDayOfBirth, 10);
-            output.dateOfBirth.day = outputDayOfBirth;
-            output.dateOfBirth.value = `${inputYearOfBirth}-${inputMonthOfBirth}-${inputDayOfBirth}`;
+              // 2.4. 出生日
+              if (inputDateOfBirth.length === 8) {
+                const inputDayOfBirth = inputDateOfBirth.substr(6, 2);
+                const outputDayOfBirth = parseInt(inputDayOfBirth, 10);
+                output.dateOfBirth.day = outputDayOfBirth;
+                output.dateOfBirth.value = `${inputYearOfBirth}-${inputMonthOfBirth}-${inputDayOfBirth}`;
 
-            // 过滤非法日期
-            // 闰年计算
-            const isLeapYear = !!(
-              (outputYearOfBirth % 4 === 0 && outputYearOfBirth % 100 !== 0)
-              || outputYearOfBirth % 400 === 0
-            );
+                // 过滤非法日期
+                // 闰年计算
+                const isLeapYear = !!(
+                  (outputYearOfBirth % 4 === 0
+                    && outputYearOfBirth % 100 !== 0)
+                  || outputYearOfBirth % 400 === 0
+                );
 
-            // 获取当前年
-            const currentYear = new Date().getFullYear();
+                // 获取当前年
+                const currentYear = new Date().getFullYear();
 
-            // 规则：1900 年至今，1-12 月，1-31 天
-            if (
-              outputYearOfBirth > 1900
-              && outputYearOfBirth <= currentYear
-              && outputMonthOfBirth >= 1
-              && outputMonthOfBirth <= 12
-              && outputDayOfBirth >= 1
-              && (((outputMonthOfBirth === 1
+                // 规则：1900 年至今，1-12 月，1-31 天
+                if (
+                  outputYearOfBirth > 1900
+                  && outputYearOfBirth <= currentYear
+                  && outputMonthOfBirth >= 1
+                  && outputMonthOfBirth <= 12
+                  && outputDayOfBirth >= 1
+                  /* && (((outputMonthOfBirth === 1
                 || outputMonthOfBirth === 3
                 || outputMonthOfBirth === 5
                 || outputMonthOfBirth === 7
@@ -273,81 +276,89 @@ const idnjs = {
                   && outputDayOfBirth === 29)
                 || (!isLeapYear
                   && outputMonthOfBirth === 2
-                  && outputDayOfBirth === 28))
-            ) {
-              output.dateOfBirth.valid = true;
+                  && outputDayOfBirth === 28)) */
+                ) {
+                  output.dateOfBirth.valid = true;
+                }
+              }
             }
           }
-        }
-      }
 
-      // 3. 顺序码
-      // 3.1. 截取字符串第 15-17 位
-      const inputSequenceCode = parseInt(inputIDN.substr(14, 3), 10);
+          // 3. 顺序码
+          // 3.1. 截取字符串第 15-17 位
+          const inputSequenceCode = parseInt(inputIDN.substr(14, 3), 10);
 
-      if (inputSequenceCode && inputSequenceCode.toString().length === 3) {
-        output.sequenceCode.value = inputSequenceCode;
-        output.sequenceCode.valid = true;
+          if (inputSequenceCode && inputSequenceCode.toString().length === 3) {
+            output.sequenceCode.value = inputSequenceCode;
+            output.sequenceCode.valid = true;
 
-        // 3.2. 出生性别
-        const inputSex = parseInt(inputIDN.substr(16, 1), 10);
-        // 第 17 位奇数为男性, 偶数为女性
-        const outputSex = inputSex % 2 === 0 ? 'female' : 'male';
-        output.sequenceCode.sex = outputSex;
-      }
-
-      // 4. 校验码
-      if (inputIDN.length >= 17) {
-        // 4.1. 截取字符串前 17 位并转换为数组
-        const idnArray = inputIDN.substr(0, 17).split('');
-
-        // 4.2. 将号码按 ISO/IEC 7064:2003, MOD 11-2 计算校验码
-        // prettier-ignore
-        const multiplierArray = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
-        // prettier-ignore
-        const checkCharArray = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
-
-        let sum = 0;
-        for (let i = 0; i < idnArray.length; i += 1) {
-          sum += idnArray[i] * multiplierArray[i];
-        }
-        const remainder = sum % 11;
-        const outputCheckChar = checkCharArray[remainder];
-        output.checkChar.char = outputCheckChar;
-
-        // 4.3. 截取字符串第 18 位字符与计算值比对
-        if (inputIDN.length === 18) {
-          const inputCheckChar = inputIDN.substr(17, 1);
-          output.checkChar.value = inputCheckChar;
-
-          if (inputCheckChar === outputCheckChar) {
-            output.checkChar.valid = true;
+            // 3.2. 出生性别
+            const inputSex = parseInt(inputIDN.substr(16, 1), 10);
+            // 第 17 位奇数为男性, 偶数为女性
+            const outputSex = inputSex % 2 === 0 ? 'female' : 'male';
+            output.sequenceCode.sex = outputSex;
           }
-        }
-      }
 
-      // 核验有效性
-      if (
-        output.region.area.valid
-        && output.region.province.valid
-        && output.region.prefecture.valid
-        && output.region.county.valid
-        // && output.dateOfBirth.valid
-        && output.sequenceCode.valid
-        && output.checkChar.valid
-      ) {
-        output.valid = true;
+          // 4. 校验码
+          if (inputIDN.length >= 17) {
+            // 4.1. 截取字符串前 17 位并转换为数组
+            const idnArray = inputIDN.substr(0, 17).split('');
+
+            // 4.2. 将号码按 ISO/IEC 7064:2003, MOD 11-2 计算校验码
+            // prettier-ignore
+            const multiplierArray = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+            // prettier-ignore
+            const checkCharArray = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+
+            let sum = 0;
+            for (let i = 0; i < idnArray.length; i += 1) {
+              sum += idnArray[i] * multiplierArray[i];
+            }
+            const remainder = sum % 11;
+            const outputCheckChar = checkCharArray[remainder];
+            output.checkChar.char = outputCheckChar;
+
+            // 4.3. 截取字符串第 18 位字符与计算值比对
+            if (inputIDN.length === 18) {
+              const inputCheckChar = inputIDN.substr(17, 1);
+              output.checkChar.value = inputCheckChar;
+
+              if (inputCheckChar === outputCheckChar) {
+                output.checkChar.valid = true;
+              }
+            }
+          }
+
+          // 5. 核验有效性
+          if (
+            output.region.area.valid
+            && output.region.province.valid
+            && output.region.prefecture.valid
+            && output.region.county.valid
+            && output.dateOfBirth.valid
+            && output.sequenceCode.valid
+            && output.checkChar.valid
+          ) {
+            output.valid = true;
+            output.message = 'success';
+          } else {
+            output.message = 'error';
+          }
+
+          return JSON.stringify(output);
+        });
       }
     }
 
-    // eslint-disable-next-line no-console
-    console.log(output);
+    return JSON.stringify({
+      valid: false,
+      message: 'error: empty input string.',
+    });
   },
 
   // 号码生成
   generate(obj) {
-    // eslint-disable-next-line no-console
-    console.log(obj);
+    return obj;
   },
 
   // 合并数据
@@ -398,7 +409,7 @@ const idnjs = {
     makeCompact(0, annualArray.length);
 
     // eslint-disable-next-line no-console
-    console.log(dataCompact);
+    console.log(JSON.stringify(dataCompact));
   },
 };
 
