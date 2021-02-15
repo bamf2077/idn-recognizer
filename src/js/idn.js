@@ -142,7 +142,7 @@ const idnjs = {
 
         // 创建 AJAX 请求
         const request = new XMLHttpRequest();
-        const url = './js/regions-cn-compact.json';
+        const url = 'https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/json/regions-cn-compact.json';
         request.open('GET', url);
         request.send(null);
 
@@ -374,7 +374,7 @@ const idnjs = {
     function makeCompact(i, length) {
       // 创建 AJAX 请求
       const request = new XMLHttpRequest();
-      const url = `./js/regions-cn-${annualArray[i]}.json`;
+      const url = `https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/json/regions-cn-${annualArray[i]}.json`;
       request.open('GET', url);
       request.send(null);
 
