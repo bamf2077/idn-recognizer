@@ -89,7 +89,8 @@ let output = idnjs.identify(str);
   },
   // 有效性
   // 仅当上方 valid 全部为 true 时值为 true
-  "valid": true
+  "valid": true,
+  "message": "success"
 }
 ```
 
