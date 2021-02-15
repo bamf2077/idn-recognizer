@@ -1,4 +1,4 @@
-[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/js/#readme "读我")
+[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/js#readme "读我")
 
 # ID Number Recognizer 使用说明
 

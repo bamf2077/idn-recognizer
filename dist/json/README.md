@@ -1,4 +1,4 @@
-[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/dist/json/#readme "读我")
+[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/dist/json#readme "读我")
 
 # ID Number Recognizer 行政区划数据库
 
