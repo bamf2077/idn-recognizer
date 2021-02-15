@@ -1,22 +1,22 @@
 [<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/js#readme "读我")
 
-<h1 id="index">索引</h1>
-
-1. [引入](#引入)
-
-2. [功能](#功能)
-
-   1. [号码识别](#号码识别)
-   2. [号码生成](#号码生成)
-   3. [数据合并](#数据合并)
-
-3. [其他说明](#其他说明)
-
----
-
 # ID Number Recognizer 使用说明
 
-## 引入
+<h2 id="index">索引</h2>
+
+1. [引入](#import)
+
+2. [功能](#function)
+
+   1. [号码识别](#identify)
+   2. [号码生成](#generate)
+   3. [数据合并](#datamerge)
+
+3. [其他说明](#others)
+
+<br>
+
+<h2 id="import">引入</h2>
 
 index.html
 
@@ -37,9 +37,9 @@ import idnjs from "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/
 
 <br>
 
-## 功能
+<h2 id="function">功能</h2>
 
-### 号码识别
+<h3 id="identify">号码识别</h3>
 
 ```javascript
 // 传入身份证号码并以 JSON 数据格式返回识别结果
@@ -115,7 +115,7 @@ let output = idnjs.identify(idnumber);
 
 <br>
 
-### 号码生成
+<h3 id="generate">号码生成</h3>
 
 ```javascript
 // 传入配置
@@ -177,7 +177,7 @@ idnjs.generate(config);
 
 <br>
 
-### 数据合并
+<h3 id="datamerge">数据合并</h3>
 
 ```javascript
 let config = {
@@ -193,12 +193,12 @@ let config = {
 };
 
 // 合并数据并以 JSON 数据格式在控制台输出
-idnjs.mergeData(config);
+idnjs.dataMerge(config);
 ```
 
 <br>
 
-## 其他说明
+<h2 id="others">其他说明</h2>
 
 ### 中华人民共和国现行行政区划：
 

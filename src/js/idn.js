@@ -362,7 +362,7 @@ const idnjs = {
   },
 
   // 合并数据
-  mergeData() {
+  dataMerge() {
     // 创建数据年度数组
     const annualArray = [];
     const annualCurrent = 2020;
@@ -390,7 +390,7 @@ const idnjs = {
       request.send(null);
 
       // 请求成功操作
-      request.onload = () => {
+      request.addEventListener('load', () => {
         if (request.status === 200) {
           // 将 JSON 内容写入 `data` 属性
           data[annualArray[i]] = JSON.parse(request.responseText);
@@ -403,7 +403,7 @@ const idnjs = {
             makeCompact(i + 1, length);
           }
         }
-      };
+      });
     }
 
     makeCompact(0, annualArray.length);
