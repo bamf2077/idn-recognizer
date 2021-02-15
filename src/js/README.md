@@ -1,5 +1,19 @@
 [<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/js#readme "读我")
 
+<h1 id="index">索引</h1>
+
+1. [引入](#引入)
+
+2. [功能](#功能)
+
+   1. [号码识别](#号码识别)
+   2. [号码生成](#号码生成)
+   3. [数据合并](#数据合并)
+
+3. [其他说明](#其他说明)
+
+---
+
 # ID Number Recognizer 使用说明
 
 ## 引入
@@ -25,7 +39,7 @@ import idnjs from "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/
 
 ## 功能
 
-### 1. 号码识别
+### 号码识别
 
 ```javascript
 // 传入身份证号码并以 JSON 数据格式返回识别结果

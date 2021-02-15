@@ -148,7 +148,7 @@ const idnjs = {
         request.send(null);
 
         // 请求成功操作
-        request.onload = () => {
+        request.addEventListener('load', () => {
           if (request.status === 200) {
             // 将 JSON 内容写入对象
             const data = JSON.parse(request.responseText);
@@ -214,7 +214,7 @@ const idnjs = {
               }
             }
           }
-        };
+        });
 
         // 请求完成、中止、错误操作
         request.addEventListener('loadend', () => {
