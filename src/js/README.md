@@ -28,11 +28,8 @@ import idnjs from "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/
 ### 1. 号码识别
 
 ```javascript
-// 传入身份证号码
-let str = idnumber;
-
-// 识别号码并返回 JSON
-let output = idnjs.identify(str);
+// 传入身份证号码并以 JSON 数据格式返回识别结果
+let output = idnjs.identify(idnumber);
 ```
 
 示例：传入 `320106202101010018` 的返回结果
@@ -109,7 +106,7 @@ let output = idnjs.identify(str);
 ```javascript
 // 传入配置
 // 配置为空时使用默认参数随机生成
-let obj = {
+let config = {
   // 行政区划
   region: {
     // 1-6 位正整数，不存在或错误时随机生成
@@ -119,7 +116,7 @@ let obj = {
   // 出生日期
   dateOfBirth: {
     // 指定年龄 (1-99 岁) 或日期 (yyyy-mm-dd 格式，1901 年至今)
-    // 不存在、超出范围或错误时按 18-50 岁随机生成
+    // 不存在、超出范围或错误时按 10-50 岁随机生成
     // 注：随机生成非真随机，年龄仅计算到年，可能会偏差 1 岁
     // 生日为 2 月时最大为 28 日，不考虑闰年的情况
     type:  age (default) | date,
@@ -133,30 +130,34 @@ let obj = {
   },
 };
 
-// 生成号码并返回 JSON
-idnjs.generate(obj);
+// 生成号码并以字符串格式返回结果
+idnjs.generate(config);
 ```
 
 示例 1:
 
 ```javascript
-// 18 岁
-let obj = { dateOfBirth: { value: 18 } };
+// 配置：18 岁
+let config = { dateOfBirth: { value: 18 } };
 
-// 返回结果
+// 生成号码并以字符串格式返回结果
+idnjs.generate(config);
+
 // 370102200306180015
 ```
 
 示例 2:
 
 ```javascript
-// 广州市荔湾区人，出生日期 1990 年 2 月 1 日
-let obj = {
+// 配置：广州市荔湾区人，出生日期 1990 年 2 月 1 日
+let config = {
   region: { value: 440103 },
   dateOfBirth: { type: date, value: "1990-02-01" },
 };
 
-// 返回结果
+// 生成号码并以字符串格式返回结果
+idnjs.generate(config);
+
 // 440103199002011158
 ```
 
@@ -165,8 +166,20 @@ let obj = {
 ### 数据合并
 
 ```javascript
-// 合并各年度行政区划数据并在控制台输出 JSON
-idnjs.mergeData();
+let config = {
+  // 配置需要合并的数据年度，默认为 1980 年至今
+  // 年份使用 yyyy 格式，仅设置起始年份时结束年份默认为当年
+  timeRange: 1980 (default) | year | "yearStart-yearEnd",
+
+  // 配置数据库 JSON 文件存放的目录
+  // 默认为 jsDelivr，可自行配置或使用相对路径
+  filePath:
+    "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/json/" (default) |
+    string,
+};
+
+// 合并数据并以 JSON 数据格式在控制台输出
+idnjs.mergeData(config);
 ```
 
 <br>
