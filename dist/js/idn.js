@@ -1,5 +1,5 @@
 /*!
- * IDN Recognizer v3.0.1-beta
+ * IDN Recognizer v3.0.1-beta.2
  * https://n2o.io/go?page=idn-recognizer
  *
  * Copyright 2021 Francis Zhao <francis@n2o.io>
@@ -88,53 +88,49 @@ const idnjs = {
         output.region.area.value = inputRegionArea;
 
         // 匹配大区
-        const switchRegionArea = () => {
-          switch (inputRegionArea) {
-            case 1:
-              output.region.area.name = '华北地区';
-              break;
-            case 2:
-              output.region.area.name = '东北地区';
-              break;
-            case 3:
-            case 7:
-              output.region.area.name = '华东地区';
-              break;
-            case 4:
-            case 8:
-              if (
-                inputRegionProvince === 41
-                || inputRegionProvince === 42
-                || inputRegionProvince === 43
-              ) {
-                output.region.area.name = '华中地区';
-              } else if (
-                inputRegionProvince === 44
-                || inputRegionProvince === 45
-                || inputRegionProvince === 46
-                || inputRegionArea === 8
-              ) {
-                output.region.area.name = '华南地区';
-              } else {
-                output.region.area.name = '中南地区';
-              }
-              break;
-            case 5:
-              output.region.area.name = '西南地区';
-              break;
-            case 6:
-              output.region.area.name = '西北地区';
-              break;
-            default:
-              break;
-          }
+        switch (inputRegionArea) {
+          case 1:
+            output.region.area.name = '华北地区';
+            break;
+          case 2:
+            output.region.area.name = '东北地区';
+            break;
+          case 3:
+          case 7:
+            output.region.area.name = '华东地区';
+            break;
+          case 4:
+          case 8:
+            if (
+              inputRegionProvince === 41
+              || inputRegionProvince === 42
+              || inputRegionProvince === 43
+            ) {
+              output.region.area.name = '华中地区';
+            } else if (
+              inputRegionProvince === 44
+              || inputRegionProvince === 45
+              || inputRegionProvince === 46
+              || inputRegionArea === 8
+            ) {
+              output.region.area.name = '华南地区';
+            } else {
+              output.region.area.name = '中南地区';
+            }
+            break;
+          case 5:
+            output.region.area.name = '西南地区';
+            break;
+          case 6:
+            output.region.area.name = '西北地区';
+            break;
+          default:
+            break;
+        }
 
-          if (output.region.area.name) {
-            output.region.area.valid = true;
-          }
-        };
-
-        switchRegionArea();
+        if (output.region.area.name) {
+          output.region.area.valid = true;
+        }
       }
 
       // 1.2.2. 省级行政区
@@ -148,7 +144,7 @@ const idnjs = {
         request.send(null);
 
         // 请求成功操作
-        request.onload = () => {
+        request.addEventListener('load', () => {
           if (request.status === 200) {
             // 将 JSON 内容写入对象
             const data = JSON.parse(request.responseText);
@@ -214,7 +210,7 @@ const idnjs = {
               }
             }
           }
-        };
+        });
 
         // 请求完成、中止、错误操作
         request.addEventListener('loadend', () => {
@@ -362,7 +358,7 @@ const idnjs = {
   },
 
   // 合并数据
-  mergeData() {
+  dataMerge() {
     // 创建数据年度数组
     const annualArray = [];
     const annualCurrent = 2020;
@@ -390,7 +386,7 @@ const idnjs = {
       request.send(null);
 
       // 请求成功操作
-      request.onload = () => {
+      request.addEventListener('load', () => {
         if (request.status === 200) {
           // 将 JSON 内容写入 `data` 属性
           data[annualArray[i]] = JSON.parse(request.responseText);
@@ -403,7 +399,7 @@ const idnjs = {
             makeCompact(i + 1, length);
           }
         }
-      };
+      });
     }
 
     makeCompact(0, annualArray.length);
