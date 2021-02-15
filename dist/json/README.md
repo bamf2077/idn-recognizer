@@ -14,6 +14,8 @@
 
 `https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/json/*`
 
+<br>
+
 ## 文件清单
 
 - regions-cn-compact.json
