@@ -1,6 +1,6 @@
-[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/blob/master/src/js/#readme "读我")
+[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/js/#readme "读我")
 
-# IDN Recognizer 使用方法
+# ID Number Recognizer 使用说明
 
 ## 引入
 
@@ -37,7 +37,7 @@ let output = idnjs.identify(str);
 
 号码样例：`320106202101010018`
 
-```json
+```jsonc
 {
   // 行政区划
   "region": {

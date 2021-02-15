@@ -1,6 +1,6 @@
-[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/blob/master/src/json/#readme "读我")
+[<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/src/json/#readme "读我")
 
-# IDN Recognizer 行政区划数据库
+# ID Number Recognizer 行政区划数据库
 
 ## regions-cn-latest.json
 
