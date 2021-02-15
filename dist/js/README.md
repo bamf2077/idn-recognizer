@@ -1,6 +1,6 @@
 [<kbd>**`* 简体中文 *`**</kbd>](https://github.com/francis-zhao/idn-recognizer/tree/master/dist/js#readme "读我")
 
-# ID Number Recognizer 使用说明
+# ID Number Recognizer - 使用说明
 
 该目录存放的文件内容同 `/src/js/` 目录，仅做 Minified 处理，更适合生产环境使用，具体文件说明还请移步 https://github.com/francis-zhao/idn-recognizer/tree/master/src/js#readme 。
 
