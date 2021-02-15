@@ -1,0 +1,10 @@
+# Node.js Modules
+/node_modules/
+
+# Temporary files
+Thumbs.db
+*/Thumbs.db
+
+# Git recache
+# git rm -r --cached .
+# git add .

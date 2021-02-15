@@ -1,0 +1,26 @@
+{
+  "name": "idn-recognizer",
+  "version": "3.0.1-alpha",
+  "description": "身份证号码信息识别组件可以快速识别中国大陆地区公民身份号码信息，包含原始户籍行政区划、出生日期、出生性别等内容，并校验号码是否正确。",
+  "main": "idn.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francis-zhao/idn-recognizer.git"
+  },
+  "author": "Francis Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/francis-zhao/idn-recognizer/issues"
+  },
+  "homepage": "https://github.com/francis-zhao/idn-recognizer#readme",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "^2.2.1"
+  }
+}
