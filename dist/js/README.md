@@ -14,6 +14,8 @@
 
 `https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/js/*`
 
+<br>
+
 ## 文件清单
 
 - cdn.js
