@@ -35,7 +35,7 @@ let str = idnumber;
 let output = idnjs.identify(str);
 ```
 
-号码样例：`320106202101010018`
+示例：传入 `320106202101010018` 的返回结果
 
 ```jsonc
 {
@@ -66,7 +66,11 @@ let output = idnjs.identify(str);
       "valid": true
     }
   },
+
   // 出生日期
+  // value 为按 RFC 3339 (不是 ISO 8601-1:2019) 格式输出的日期
+  // year/month/day 为 yyyy/M/d 格式省略前导 0
+  // 日期可能正确，但却不合法，如 2020-02-30，请按 valid 值判断
   "dateOfBirth": {
     "value": "2021-01-01",
     "year": 2021,
@@ -74,12 +78,15 @@ let output = idnjs.identify(str);
     "day": 1,
     "valid": true
   },
+
   // 顺序码
+  // 出生性别 male 为男，female 为女
   "sequenceCode": {
     "value": "001",
-    "sex": "female",
+    "sex": "male",
     "valid": true
   },
+
   // 校验码
   // value 为识别值，char 为计算值
   "checkChar": {
@@ -87,8 +94,9 @@ let output = idnjs.identify(str);
     "char": "8",
     "valid": true
   },
+
   // 有效性
-  // 仅当上方 valid 全部为 true 时值为 true
+  // 仅当上方 valid 全部为 true 时值为 true，否则一律 false
   "valid": true,
   "message": "success"
 }
@@ -101,10 +109,55 @@ let output = idnjs.identify(str);
 ```javascript
 // 传入配置
 // 配置为空时使用默认参数随机生成
-let obj = {};
+let obj = {
+  // 行政区划
+  region: {
+    // 1-6 位正整数，不存在或错误时随机生成
+    value: int,
+  },
+
+  // 出生日期
+  dateOfBirth: {
+    // 指定年龄 (1-99 岁) 或日期 (yyyy-mm-dd 格式，1901 年至今)
+    // 不存在、超出范围或错误时按 18-50 岁随机生成
+    // 注：随机生成非真随机，年龄仅计算到年，可能会偏差 1 岁
+    // 生日为 2 月时最大为 28 日，不考虑闰年的情况
+    type:  age (default) | date,
+    value: int           | "string",
+  },
+
+  // 顺序码
+  // 顺序码随机生成，仅可指定性别，性别不存在或错误时随机生成
+  sequenceCode: {
+    sex: "male" | "female",
+  },
+};
 
 // 生成号码并返回 JSON
 idnjs.generate(obj);
+```
+
+示例 1:
+
+```javascript
+// 18 岁
+let obj = { dateOfBirth: { value: 18 } };
+
+// 返回结果
+// 370102200306180015
+```
+
+示例 2:
+
+```javascript
+// 广州市荔湾区人，出生日期 1990 年 2 月 1 日
+let obj = {
+  region: { value: 440103 },
+  dateOfBirth: { type: date, value: "1990-02-01" },
+};
+
+// 返回结果
+// 440103199002011158
 ```
 
 <br>
@@ -137,3 +190,7 @@ idnjs.mergeData();
 <br>
 
 [<kbd>返回顶部</kbd>](# "返回顶部")
+
+```
+
+```
