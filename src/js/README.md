@@ -41,6 +41,8 @@ const idnjs = require("./idn");
 const idnjs = require("https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/js/idn.js");
 ```
 
+⚠ 注意：因 JSON 文件较大，生产环境使用时推荐在服务器开启 Brotli/Gzip 压缩或直接使用 jsDelivr CDN。
+
 <br>
 
 <h2 id="function">功能</h2>
