@@ -12,7 +12,7 @@
    2. [号码生成](#generate)
    3. [数据合并](#datamerge)
 
-3. [其他说明](#others)
+3. [其他](#others)
 
 <br>
 
@@ -28,11 +28,17 @@ index.html
 main.js
 
 ```javascript
-// 本地
+// ES6: 本地
 import idnjs from "./idn";
 
-// CDN (推荐)
-import idnjs from "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/js/idn.min";
+// ES6: CDN (推荐)
+import idnjs from "https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/js/idn.js";
+
+// AMD 或 CommonJS: 本地
+const idnjs = require("./idn");
+
+// AMD 或 CommonJS: CDN
+const idnjs = require("https://cdn.jsdelivr.net/gh/francis-zhao/idn-recognizer/dist/js/idn.js");
 ```
 
 <br>
@@ -70,7 +76,7 @@ let output = idnjs.identify(idnumber);
       "name": "南京市",
       "valid": true
     },
-
+    // 县级行政区
     "county": {
       "value": 320106,
       "name": "鼓楼区",
@@ -200,7 +206,7 @@ idnjs.dataMerge(config);
 
 <h2 id="others">其他说明</h2>
 
-### 中华人民共和国现行行政区划：
+### 中华人民共和国现行行政区划
 
 1. 省级行政区：包括省、自治区、直辖市、特别行政区；
 2. 地级行政区：包括地级市、地区、自治州、盟。
@@ -217,7 +223,3 @@ idnjs.dataMerge(config);
 <br>
 
 [<kbd>返回顶部</kbd>](# "返回顶部")
-
-```
-
-```
