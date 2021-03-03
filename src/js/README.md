@@ -123,7 +123,7 @@ let output = idnjs.identify(idnumber);
 
 <br>
 
-<h3 id="generate">号码生成</h3>
+<h3 id="generate">号码生成 (开发中)</h3>
 
 ```javascript
 // 传入配置
